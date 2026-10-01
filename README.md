@@ -44,8 +44,18 @@ export function SupportChat({ token }: { token: string }) {
 - `renderUserMenu` : reçoit `{ children }` (l'avatar) pour y accrocher le menu de l'application hôte.
 - `ocrAvailable` : affiche le bouton OCR sur les PDF joints.
 
+Le composant remplit la hauteur de son parent. Le parent doit donc avoir une hauteur (`height: 100%` dans un écran, ou une zone flexible). La feuille de styles ne réinitialise pas la page hôte.
+
 React, React DOM et `@breign/client` sont des dépendances de pair.
 
 ```bash
 npm install @breign/chat react react-dom @breign/client
 ```
+
+## Démo
+
+```bash
+npm run demo
+```
+
+La page place le chat dans un panneau sous un formulaire. Renseignez l'origine de brain-api et un jeton : la liste des organisations est celle que ce jeton peut ouvrir. « Plusieurs agents » charge les agents de l'organisation choisie. Sans cette case, indiquez l'identifiant et le nom d'un seul agent.

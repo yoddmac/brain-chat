@@ -1,0 +1,147 @@
+{
+  "chat": {
+    "conversation": {
+      "clear": "Clear the conversation",
+      "clearFailed": "Could not clear the conversation",
+      "cleared": "Conversation cleared",
+      "commands": "/ commands",
+      "context": {
+        "approximate": "This model declares no window size: approximate value.",
+        "catalogued": "Size known for this model, not declared by the provider.",
+        "detail": "{{used}} / {{window}} tokens used ({{percent}})",
+        "model": "Model: {{model}}",
+        "title": "Context window"
+      },
+      "empty": "Start the conversation with {{name}}.",
+      "file": "File",
+      "jumpToUnread": "{{count}} new message(s)",
+      "loading": "Loading the conversation…",
+      "ocr": "OCR",
+      "ocrHint": "Has each page of attached PDFs re-read as an image, using the OCR configured for your organization. Required for a scanned document.",
+      "placeholder": "Message {{name}}…",
+      "removeFile": "Remove file",
+      "replyFailed": "The agent could not reply.",
+      "replyTimeout": "The agent did not reply in time.",
+      "scrollToBottom": "Back to bottom",
+      "send": "Send",
+      "sending": "Sending…",
+      "subtitle": "{{count}} message(s) · single conversation",
+      "unreadMarker": "Unread from here",
+      "uploadFailed": "The file upload failed.",
+      "uploading": "Uploading…"
+    },
+    "emptyDescription": "Add an agent from the + button in the sidebar to start a conversation.",
+    "emptyTitle": "No agent in your list",
+    "errors": {
+      "NO_ENGINE_CONFIGURED": "No AI engine is configured for this agent or the organization.",
+      "MODEL_TOOLS_NOT_SUPPORTED": "This model does not support tools. Switch models or turn off the agent's tools.",
+      "MODEL_VISION_NOT_SUPPORTED": "This model does not support images. Use a vision-capable model, or remove the image.",
+      "api": "API error: {{message}}"
+    },
+    "loadFailed": "The chat could not be loaded.",
+    "loading": "Loading…",
+    "retry": "Try again",
+    "mobile": {
+      "back": "Back to the list",
+      "close": "Close",
+      "options": "Agent options"
+    },
+    "orgNotFound": "Organisation not found",
+    "panel": {
+      "description": "Description",
+      "noDescription": "This agent has no description.",
+      "noTools": "No tool configured",
+      "showDetails": "Show details",
+      "tabAgent": "Agent",
+      "tabFiles": "Files",
+      "tools": "Tools",
+      "unpin": "Remove from my list"
+    },
+    "rail": {
+      "addAgent": "Add an agent",
+      "allPinned": "Every agent is already in your list.",
+      "collapse": "Collapse the list",
+      "empty": "No agent matches the filter.",
+      "expand": "Expand the list",
+      "filter": "Filter",
+      "newMessages": "New messages",
+      "noDescription": "No description",
+      "replying": "is replying…"
+    },
+    "userMenu": {
+      "backToOrg": "Back to the organisation",
+      "title": "User menu"
+    },
+    "workspace": {
+      "backToEditor": "Edit",
+      "changedSince": "changed since",
+      "changedSinceHint": "The file changed after this message: what you open is its current content.",
+      "closeAnyway": "Close without saving",
+      "closeUnsaved": "Some changes are not saved.",
+      "conflict": "The file changed meanwhile (v{{version}} on the server). Your text is kept: save again to force it, or reload the server version.",
+      "conflictGone": "The file no longer exists on the server: the agent deleted it, and saving cannot recreate it. Your text is kept here — download it if you want to keep it.",
+      "deleteConfirm": "Delete permanently?",
+      "deleteFailed": "Deletion failed.",
+      "discardAndReload": "Reload server version",
+      "download": "Download",
+      "empty": "No files yet.",
+      "emptyFile": "Empty file.",
+      "emptyHint": "Files produced by the agent will show up here.",
+      "gone": "deleted",
+      "goneHint": "This file no longer exists in the conversation workspace.",
+      "missing": "This file no longer exists in the workspace.",
+      "noneShared": "No shared file yet.",
+      "preview": "Preview",
+      "readFailed": "This file could not be read.",
+      "resize": "Adjust the editor width — drag, left/right arrows, or double-click to reset to half",
+      "resizeColumn": "Resize column {{column}} — drag, or double-click to reset",
+      "revert": "Discard my changes",
+      "rowsTruncated": "Preview limited to the first {{count}} rows.",
+      "saveFailed": "Saving failed.",
+      "tableShape": "{{rows}} rows · {{columns}} columns",
+      "title": "File",
+      "unsaved": "unsaved changes",
+      "updatedAt": "updated {{date}}",
+      "usage": "{{count}} file(s) · {{size}}",
+      "workingFiles": "Working files ({{count}})"
+    }
+  },
+  "bubble": {
+    "approval": {
+      "allowAlways": "Always allow",
+      "allowOnce": "Allow once",
+      "refuse": "Refuse",
+      "revokeHint": "You can take an approval back at any time from the agent's Tools page.",
+      "scopeExplainer": "“Allow once” holds for this reply only: the same request will be asked about again next time, and nothing is saved. “Always allow” holds for this agent in all your conversations, until you take it back from the agent’s Tools page.",
+      "submitFailed": "Your answer could not be sent. Try again."
+    },
+    "approvalTrace": {
+      "granted": "Allowed",
+      "refused": "Refused",
+      "scopeAgent": "all your conversations with this agent",
+      "scopeOnce": "this reply only",
+      "title": "Decisions on this reply"
+    },
+    "networkApproval": {
+      "granted": "What you would allow",
+      "intro": "It is not in the list of allowed addresses, so nothing was sent. You decide. Requested method: {{method}}.",
+      "prefixWarning": "The agent will be able to send requests to this address, with any parameters of its choosing.",
+      "requested": "Address requested",
+      "title": "This agent wants to reach an address",
+      "wholeDomain": "This whole domain ({{origin}})"
+    },
+    "commandApproval": {
+      "exactWarning": "Only this exact command will be allowed. The slightest variant will be asked about again. If it runs a file, what runs is that file's contents, which you cannot see here: it can go on to call the sandbox's other commands, python included, without asking you again.",
+      "granted": "What you would allow",
+      "intro": "The agent wants to run code in its sandbox. Nothing ran — not even the start of the command. You decide.",
+      "requested": "Command requested",
+      "title": "This agent wants to run a command"
+    }
+  },
+  "markdown": {
+    "emptyContent": "No content."
+  },
+  "common": {
+    "back": "Back"
+  }
+}

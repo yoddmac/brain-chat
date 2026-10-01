@@ -1,0 +1,147 @@
+{
+  "chat": {
+    "conversation": {
+      "clear": "Vider la conversation",
+      "clearFailed": "Impossible de vider la conversation",
+      "cleared": "Conversation vidée",
+      "commands": "/ commandes",
+      "context": {
+        "approximate": "Ce modèle ne déclare pas la taille de sa fenêtre : valeur approchée.",
+        "catalogued": "Taille connue pour ce modèle, non déclarée par le provider.",
+        "detail": "{{used}} / {{window}} tokens utilisés ({{percent}})",
+        "model": "Modèle : {{model}}",
+        "title": "Fenêtre de contexte"
+      },
+      "empty": "Démarrez la conversation avec {{name}}.",
+      "file": "Fichier",
+      "jumpToUnread": "{{count}} nouveau(x) message(s)",
+      "loading": "Chargement de la conversation…",
+      "ocr": "OCR",
+      "ocrHint": "Fait relire chaque page des PDF joints comme une image, avec l'OCR configuré pour votre organisation. Indispensable pour un document scanné.",
+      "placeholder": "Message à {{name}}…",
+      "removeFile": "Retirer le fichier",
+      "replyFailed": "L'agent n'a pas pu répondre.",
+      "replyTimeout": "L'agent n'a pas répondu dans le délai imparti.",
+      "scrollToBottom": "Revenir en bas",
+      "send": "Envoyer",
+      "sending": "Envoi…",
+      "subtitle": "{{count}} message(s) · conversation unique",
+      "unreadMarker": "Non lu à partir d'ici",
+      "uploadFailed": "L'envoi du fichier a échoué.",
+      "uploading": "Envoi…"
+    },
+    "emptyDescription": "Ajoutez un agent depuis le bouton + de la barre latérale pour démarrer une conversation.",
+    "emptyTitle": "Aucun agent dans votre liste",
+    "errors": {
+      "NO_ENGINE_CONFIGURED": "Aucun moteur IA n'est configuré pour cet agent ni pour l'organisation.",
+      "MODEL_TOOLS_NOT_SUPPORTED": "Ce modèle ne supporte pas les outils. Changez de modèle ou désactivez les outils de l'agent.",
+      "MODEL_VISION_NOT_SUPPORTED": "Ce modèle ne supporte pas les images. Utilisez un modèle compatible avec la vision, ou retirez l'image.",
+      "api": "Erreur API : {{message}}"
+    },
+    "loadFailed": "Impossible de charger le chat.",
+    "loading": "Chargement…",
+    "retry": "Réessayer",
+    "mobile": {
+      "back": "Retour à la liste",
+      "close": "Fermer",
+      "options": "Options de l'agent"
+    },
+    "orgNotFound": "Organisation introuvable",
+    "panel": {
+      "description": "Description",
+      "noDescription": "Cet agent n'a pas de description.",
+      "noTools": "Aucun outil configuré",
+      "showDetails": "Voir les détails",
+      "tabAgent": "Agent",
+      "tabFiles": "Fichiers",
+      "tools": "Outils",
+      "unpin": "Retirer de ma liste"
+    },
+    "rail": {
+      "addAgent": "Ajouter un agent",
+      "allPinned": "Tous les agents sont déjà dans votre liste.",
+      "collapse": "Replier la liste",
+      "empty": "Aucun agent ne correspond au filtre.",
+      "expand": "Déplier la liste",
+      "filter": "Filtrer",
+      "newMessages": "Nouveaux messages",
+      "noDescription": "Sans description",
+      "replying": "écrit une réponse…"
+    },
+    "userMenu": {
+      "backToOrg": "Retour à l'organisation",
+      "title": "Menu utilisateur"
+    },
+    "workspace": {
+      "backToEditor": "Éditer",
+      "changedSince": "modifié depuis",
+      "changedSinceHint": "Le fichier a changé après ce message : ce que vous ouvrez est son contenu actuel.",
+      "closeAnyway": "Fermer sans enregistrer",
+      "closeUnsaved": "Des modifications ne sont pas enregistrées.",
+      "conflict": "Le fichier a été modifié entre-temps (v{{version}} sur le serveur). Votre texte est conservé : enregistrez à nouveau pour l'imposer, ou rechargez la version du serveur.",
+      "conflictGone": "Le fichier n'existe plus sur le serveur : l'agent l'a supprimé, et l'enregistrement ne peut pas le recréer. Votre texte est conservé ici — téléchargez-le si vous voulez le garder.",
+      "deleteConfirm": "Supprimer définitivement ?",
+      "deleteFailed": "La suppression a échoué.",
+      "discardAndReload": "Recharger le serveur",
+      "download": "Télécharger",
+      "empty": "Aucun fichier.",
+      "emptyFile": "Fichier vide.",
+      "emptyHint": "Les fichiers produits par l'agent apparaîtront ici.",
+      "gone": "supprimé",
+      "goneHint": "Ce fichier n'existe plus dans le workspace de la conversation.",
+      "missing": "Ce fichier n'existe plus dans le workspace.",
+      "noneShared": "Aucun fichier partagé pour l'instant.",
+      "preview": "Aperçu",
+      "readFailed": "Impossible de lire ce fichier.",
+      "resize": "Ajuster la largeur de l'éditeur — glisser, flèches gauche/droite, ou double-clic pour revenir à la moitié",
+      "resizeColumn": "Élargir la colonne {{column}} — glisser, ou double-clic pour réinitialiser",
+      "revert": "Annuler mes modifications",
+      "rowsTruncated": "Aperçu limité aux {{count}} premières lignes.",
+      "saveFailed": "L'enregistrement a échoué.",
+      "tableShape": "{{rows}} lignes · {{columns}} colonnes",
+      "title": "Fichier",
+      "unsaved": "modifications non enregistrées",
+      "updatedAt": "modifié le {{date}}",
+      "usage": "{{count}} fichier(s) · {{size}}",
+      "workingFiles": "Fichiers de travail ({{count}})"
+    }
+  },
+  "bubble": {
+    "approval": {
+      "allowAlways": "Toujours autoriser",
+      "allowOnce": "Autoriser une fois",
+      "refuse": "Refuser",
+      "revokeHint": "Vous pouvez retirer une autorisation à tout moment depuis la page Outils de l'agent.",
+      "scopeExplainer": "« Autoriser une fois » ne vaut que pour cette réponse : la même demande vous sera reposée la prochaine fois, et rien n'est enregistré. « Toujours autoriser » vaut pour cet agent dans toutes vos conversations, jusqu'à ce que vous le retiriez depuis la page Outils de l'agent.",
+      "submitFailed": "Votre réponse n'a pas pu être envoyée. Réessayez."
+    },
+    "approvalTrace": {
+      "granted": "Autorisé",
+      "refused": "Refusé",
+      "scopeAgent": "toutes vos conversations avec cet agent",
+      "scopeOnce": "cette réponse seulement",
+      "title": "Décisions sur cette réponse"
+    },
+    "networkApproval": {
+      "granted": "Ce que vous autoriseriez",
+      "intro": "Elle ne fait pas partie des adresses autorisées, donc rien n'a été envoyé. C'est vous qui décidez. Méthode demandée : {{method}}.",
+      "prefixWarning": "L'agent pourra envoyer des requêtes à cette adresse, avec les paramètres de son choix.",
+      "requested": "Adresse demandée",
+      "title": "Cet agent veut joindre une adresse",
+      "wholeDomain": "Tout ce domaine ({{origin}})"
+    },
+    "commandApproval": {
+      "exactWarning": "Seule cette commande exacte sera autorisée. La moindre variante vous sera redemandée. Si elle exécute un fichier, c'est le contenu de ce fichier qui s'exécute, et vous ne le voyez pas ici : il peut à son tour appeler les autres commandes du bac à sable, python compris, sans nouvelle question.",
+      "granted": "Ce que vous autoriseriez",
+      "intro": "L'agent veut exécuter du code dans son bac à sable. Rien n'a été exécuté — pas même le début de la commande. C'est vous qui décidez.",
+      "requested": "Commande demandée",
+      "title": "Cet agent veut exécuter une commande"
+    }
+  },
+  "markdown": {
+    "emptyContent": "Aucun contenu."
+  },
+  "common": {
+    "back": "Retour"
+  }
+}

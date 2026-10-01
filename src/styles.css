@@ -1,0 +1,81 @@
+@import "sonner/dist/styles.css";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(bc);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(bc);
+@source "./**/*.{ts,tsx}";
+
+/* Pas de preflight global : le reset reste dans le composant, sous les utilitaires. */
+@layer base {
+  .breign-chat,
+  .breign-chat *,
+  .breign-chat *::before,
+  .breign-chat *::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+  }
+
+  .breign-chat {
+    font-family: var(--bc-font-sans, ui-sans-serif, system-ui, sans-serif);
+    line-height: 1.5;
+    color: #1d1d1f;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .breign-chat button,
+  .breign-chat input,
+  .breign-chat textarea,
+  .breign-chat select {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breign-chat button {
+    cursor: pointer;
+  }
+
+  .breign-chat h1,
+  .breign-chat h2,
+  .breign-chat h3,
+  .breign-chat h4,
+  .breign-chat p,
+  .breign-chat ul,
+  .breign-chat ol {
+    margin: 0;
+  }
+
+  .breign-chat h1,
+  .breign-chat h2,
+  .breign-chat h3,
+  .breign-chat h4 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .breign-chat ul,
+  .breign-chat ol {
+    padding: 0;
+    list-style: none;
+  }
+
+  .breign-chat img,
+  .breign-chat svg,
+  .breign-chat video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.breign-chat {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}

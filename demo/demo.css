@@ -1,0 +1,91 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #f4efe6;
+  color: #3b2f2f;
+}
+
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bar {
+  flex: none;
+  padding: 16px 16px 8px;
+}
+
+.fields,
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.fields {
+  margin-bottom: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #d6d3d1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  min-width: 8rem;
+}
+
+.check {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+}
+
+.open {
+  font: inherit;
+  background: #3b2f2f;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.panel {
+  flex: 1;
+  min-height: 0;
+  margin: 8px 16px 16px;
+  border: 1px solid #d6d3d1;
+  background: #fff;
+}
+
+.hint {
+  margin: 24px;
+}
+
+.hint.error,
+.field-error {
+  color: #b91c1c;
+}
+
+.field-error {
+  font-size: 11px;
+}
