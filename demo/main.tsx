@@ -24,6 +24,12 @@ type OrgList =
   | { status: 'error'; message: string }
   | { status: 'ready'; organizations: OrganizationOption[] };
 
+type AgentList =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'error'; message: string }
+  | { status: 'ready'; agents: ChatAgent[] };
+
 type Panel =
   | { status: 'idle' }
   | { status: 'loading' }
@@ -110,13 +116,15 @@ async function listOrganizationAgents(
       headers: { ...init.headers, ...headers },
     }),
   );
-  return listed.map((agent) => ({
-    id: agent.id,
-    name: agent.name,
-    description: agent.description ?? '',
-    tools: (agent.tools ?? []).map((tool) => tool.name).filter((name) => name.length > 0),
-    sandboxEnabled: agent.sandboxConfiguration?.enabled === true,
-  }));
+  return listed
+    .map((agent) => ({
+      id: agent.id,
+      name: agent.name,
+      description: agent.description ?? '',
+      tools: (agent.tools ?? []).map((tool) => tool.name).filter((name) => name.length > 0),
+      sandboxEnabled: agent.sandboxConfiguration?.enabled === true,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 }
 
 async function readFailure(error: unknown): Promise<string> {
@@ -134,8 +142,10 @@ async function readFailure(error: unknown): Promise<string> {
 function Demo() {
   const [draft, setDraft] = useState<Draft>(loadDraft);
   const [orgs, setOrgs] = useState<OrgList>({ status: 'idle' });
+  const [agentList, setAgentList] = useState<AgentList>({ status: 'idle' });
   const [panel, setPanel] = useState<Panel>({ status: 'idle' });
   const orgRequest = useRef(0);
+  const agentRequest = useRef(0);
 
   async function loadOrganizations(baseUrl: string, token: string) {
     const request = ++orgRequest.current;
@@ -166,47 +176,75 @@ function Demo() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (orgs.status !== 'ready' || !draft.organizationId.trim()) {
+      agentRequest.current += 1;
+      setAgentList({ status: 'idle' });
+      return;
+    }
+    const request = ++agentRequest.current;
+    const { baseUrl, organizationId, token } = draft;
+    setAgentList({ status: 'loading' });
+    void listOrganizationAgents(baseUrl, organizationId.trim(), token)
+      .then((listed) => {
+        if (request !== agentRequest.current) return;
+        setAgentList({ status: 'ready', agents: listed });
+        setDraft((current) => {
+          const selected = listed.find((agent) => agent.id === current.agentId);
+          if (selected) {
+            return selected.name === current.agentName ? current : { ...current, agentName: selected.name };
+          }
+          return {
+            ...current,
+            agentId: listed[0]?.id ?? '',
+            agentName: listed[0]?.name ?? '',
+          };
+        });
+      })
+      .catch((error: unknown) => {
+        if (request !== agentRequest.current) return;
+        void readFailure(error).then((message) => {
+          if (request !== agentRequest.current) return;
+          setAgentList({ status: 'error', message });
+        });
+      });
+    // L'adresse n'est pas une dépendance : la saisie ne relance pas la liste.
+    // Au blur, les organisations repassent par « loading », ce qui recharge les agents.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orgs.status, draft.organizationId, draft.token]);
+
   function update(patch: Partial<Draft>) {
     setDraft((current) => ({ ...current, ...patch }));
   }
 
-  async function openChat() {
+  function openChat() {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
-    if (!draft.features.multiAgent && !draft.agentId.trim()) {
-      setPanel({ status: 'error', message: 'Indique l’identifiant de l’agent.' });
-      return;
-    }
     if (!draft.organizationId.trim()) {
       setPanel({ status: 'error', message: 'Choisis une organisation.' });
       return;
     }
-
-    if (!draft.features.multiAgent) {
-      setPanel({
-        status: 'ready',
-        draft,
-        agents: [
-          {
-            id: draft.agentId.trim(),
-            name: draft.agentName.trim() || draft.agentId.trim(),
-            sandboxEnabled: draft.features.workspace,
-          },
-        ],
-      });
+    if (agentList.status === 'error') {
+      setPanel({ status: 'error', message: agentList.message });
       return;
     }
-
-    setPanel({ status: 'loading' });
-    try {
-      const agents = await listOrganizationAgents(draft.baseUrl, draft.organizationId.trim(), draft.token);
-      if (agents.length === 0) {
-        setPanel({ status: 'error', message: 'Cette organisation n’a aucun agent.' });
+    if (agentList.status !== 'ready') {
+      setPanel({ status: 'error', message: 'Les agents de cette organisation ne sont pas encore chargés.' });
+      return;
+    }
+    if (agentList.agents.length === 0) {
+      setPanel({ status: 'error', message: 'Cette organisation n’a aucun agent.' });
+      return;
+    }
+    if (!draft.features.multiAgent) {
+      const selected = agentList.agents.find((agent) => agent.id === draft.agentId);
+      if (!selected) {
+        setPanel({ status: 'error', message: 'Choisis un agent.' });
         return;
       }
-      setPanel({ status: 'ready', draft, agents });
-    } catch (error) {
-      setPanel({ status: 'error', message: await readFailure(error) });
+      setPanel({ status: 'ready', draft, agents: [selected] });
+      return;
     }
+    setPanel({ status: 'ready', draft, agents: agentList.agents });
   }
 
   return (
@@ -263,25 +301,46 @@ function Demo() {
               )}
             </select>
             {orgs.status === 'error' ? <span className="field-error">{orgs.message}</span> : null}
+            {draft.features.multiAgent && orgs.status !== 'error' && agentList.status === 'error' ? (
+              <span className="field-error">{agentList.message}</span>
+            ) : null}
           </label>
           {draft.features.multiAgent ? null : (
-            <>
-              <label>
-                Agent
-                <input
-                  value={draft.agentId}
-                  placeholder="id"
-                  onChange={(event) => update({ agentId: event.target.value })}
-                />
-              </label>
-              <label>
-                Nom
-                <input
-                  value={draft.agentName}
-                  onChange={(event) => update({ agentName: event.target.value })}
-                />
-              </label>
-            </>
+            <label>
+              Agent
+              <select
+                value={agentList.status === 'ready' ? draft.agentId : ''}
+                disabled={agentList.status !== 'ready' || agentList.agents.length === 0}
+                onChange={(event) => {
+                  const selected =
+                    agentList.status === 'ready'
+                      ? agentList.agents.find((agent) => agent.id === event.target.value)
+                      : undefined;
+                  update({ agentId: event.target.value, agentName: selected?.name ?? '' });
+                }}
+              >
+                {agentList.status === 'ready' ? (
+                  agentList.agents.length === 0 ? (
+                    <option value="">Aucun agent</option>
+                  ) : (
+                    agentList.agents.map((agent) => (
+                      <option key={agent.id} value={agent.id}>
+                        {agent.name}
+                      </option>
+                    ))
+                  )
+                ) : (
+                  <option value="">
+                    {agentList.status === 'loading'
+                      ? 'Chargement…'
+                      : agentList.status === 'error'
+                        ? 'Impossible de charger'
+                        : 'Choisis une organisation'}
+                  </option>
+                )}
+              </select>
+              {agentList.status === 'error' ? <span className="field-error">{agentList.message}</span> : null}
+            </label>
           )}
           <label>
             Langue
@@ -314,8 +373,13 @@ function Demo() {
               {label}
             </label>
           ))}
-          <button type="button" className="open" onClick={() => void openChat()} disabled={panel.status === 'loading'}>
-            {panel.status === 'loading' ? 'Chargement…' : 'Ouvrir le chat'}
+          <button
+            type="button"
+            className="open"
+            onClick={openChat}
+            disabled={agentList.status === 'loading'}
+          >
+            {agentList.status === 'loading' ? 'Chargement…' : 'Ouvrir le chat'}
           </button>
         </div>
       </header>
@@ -339,13 +403,11 @@ function Demo() {
           />
         ) : panel.status === 'error' ? (
           <p className="hint error">{panel.message}</p>
-        ) : panel.status === 'loading' ? (
-          <p className="hint">Chargement des agents…</p>
         ) : (
           <p className="hint">
             {draft.features.multiAgent
-              ? 'Plusieurs agents : la liste vient de l’organisation, sans identifiant à saisir.'
-              : 'Un seul agent : indique son identifiant et son nom.'}
+              ? 'Plusieurs agents : tous les agents de l’organisation seront ouverts.'
+              : 'Un seul agent : choisis-le dans la liste.'}
           </p>
         )}
       </div>

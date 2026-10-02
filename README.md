@@ -58,4 +58,4 @@ npm install @breign/chat react react-dom @breign/client
 npm run demo
 ```
 
-La page place le chat dans un panneau sous un formulaire. Renseignez l'origine de brain-api et un jeton : la liste des organisations est celle que ce jeton peut ouvrir. « Plusieurs agents » charge les agents de l'organisation choisie. Sans cette case, indiquez l'identifiant et le nom d'un seul agent.
+La page place le chat dans un panneau sous un formulaire. Renseignez l'origine de brain-api et un jeton : la liste des organisations est celle que ce jeton peut ouvrir, et l'organisation choisie charge ses agents. « Plusieurs agents » les ouvre tous. Sans cette case, un seul agent est proposé dans la liste.
